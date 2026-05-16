@@ -1,0 +1,567 @@
+2026-05-15 21:25:38,293 [src.main_agent] INFO: Inicializando Jarvis Agent...
+2026-05-15 21:25:38,294 [src.database] INFO: Banco de dados inicializado com sucesso.
+2026-05-15 21:25:38,294 [src.database] INFO: Banco já possui dados, pulando população de exemplo.
+2026-05-15 21:25:38,294 [src.main_agent] INFO: Banco de dados pronto.
+2026-05-15 21:25:38,294 [src.rag_core] INFO: Inicializando pipeline RAG...
+2026-05-15 21:25:39,119 [src.rag_core] INFO: PDF carregado: Resumo_IA.pdf (18434 caracteres)
+2026-05-15 21:25:39,119 [src.rag_core] INFO: Total de documentos carregados: 1
+2026-05-15 21:25:39,123 [src.rag_core] INFO: Documentos divididos em 43 chunk(s) (tamanho=500, overlap=50)
+2026-05-15 21:25:40,695 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:25:40,724 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json "HTTP/1.1 200 OK"
+2026-05-15 21:25:40,876 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:25:40,876 [huggingface_hub.utils._http] WARNING: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-15 21:25:40,923 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json "HTTP/1.1 200 OK"
+2026-05-15 21:25:40,924 [sentence_transformers.base.model] INFO: Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+2026-05-15 21:25:41,078 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:25:41,109 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json "HTTP/1.1 200 OK"
+2026-05-15 21:25:41,269 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:25:41,299 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md "HTTP/1.1 200 OK"
+2026-05-15 21:25:41,471 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:25:41,499 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json "HTTP/1.1 200 OK"
+2026-05-15 21:25:41,648 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:25:41,676 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json "HTTP/1.1 200 OK"
+2026-05-15 21:25:41,830 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+2026-05-15 21:25:41,990 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:25:42,023 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-05-15 21:25:42,640 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-05-15 21:25:42,792 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-05-15 21:25:42,946 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-05-15 21:25:43,100 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-05-15 21:25:43,251 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:25:43,281 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-15 21:25:43,430 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:25:43,460 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-05-15 21:25:43,613 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:25:43,641 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-05-15 21:25:43,793 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:25:43,820 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-15 21:25:43,972 [httpx] INFO: HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-15 21:25:44,135 [httpx] INFO: HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-15 21:25:44,332 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:25:44,384 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+2026-05-15 21:25:44,547 [httpx] INFO: HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-05-15 21:25:44,616 [src.rag_core] INFO: ChromaDB collection inicializada com 43 documento(s)
+2026-05-15 21:25:44,618 [src.rag_core] INFO: Collection já possui 43 chunks indexados. Pulando re-indexação.
+2026-05-15 21:25:44,618 [src.rag_core] INFO: RAG inicializado com sucesso. Total de chunks indexados: 43
+2026-05-15 21:25:44,618 [src.main_agent] INFO: RAG inicializado.
+2026-05-15 21:25:44,618 [src.main_agent] INFO: Jarvis Agent inicializado com sucesso!
+2026-05-15 21:26:18,427 [src.main_agent] INFO: Processando mensagem: 'Quais sao minhas tarefas pendentes?...'
+2026-05-15 21:26:18,428 [src.main_agent] INFO: Iteração 1 do loop de tool calling
+2026-05-15 21:26:18,447 [src.llm_client] INFO: Enviando requisição para LLM com 2 mensagem(ns)
+2026-05-15 21:26:18,447 [src.llm_client] INFO:   Ferramentas disponíveis: ['consultar_agenda', 'listar_tarefas', 'adicionar_tarefa', 'concluir_tarefa', 'buscar_material_rag']
+2026-05-15 21:26:20,561 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 400 Bad Request"
+2026-05-15 21:26:20,563 [src.llm_client] ERROR: Erro ao comunicar com LLM: BadRequestError: Error code: 400 - {'error': {'message': '"auto" tool choice requires --enable-auto-tool-choice and --tool-call-parser to be set', 'type': 'BadRequestError', 'param': None, 'code': 400}}
+2026-05-15 21:26:20,564 [src.main_agent] ERROR: Erro na comunicação com LLM: Error code: 400 - {'error': {'message': '"auto" tool choice requires --enable-auto-tool-choice and --tool-call-parser to be set', 'type': 'BadRequestError', 'param': None, 'code': 400}}
+2026-05-15 21:29:35,644 [src.main_agent] INFO: Inicializando Jarvis Agent...
+2026-05-15 21:29:35,798 [src.database] INFO: Banco de dados inicializado com sucesso.
+2026-05-15 21:29:35,926 [src.database] INFO: Dados de exemplo populados com sucesso.
+2026-05-15 21:29:35,926 [src.main_agent] INFO: Banco de dados pronto.
+2026-05-15 21:29:35,926 [src.rag_core] INFO: Inicializando pipeline RAG...
+2026-05-15 21:29:36,788 [src.rag_core] INFO: PDF carregado: Resumo_IA.pdf (18434 caracteres)
+2026-05-15 21:29:36,789 [src.rag_core] INFO: Total de documentos carregados: 1
+2026-05-15 21:29:36,791 [src.rag_core] INFO: Documentos divididos em 43 chunk(s) (tamanho=500, overlap=50)
+2026-05-15 21:29:39,124 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:29:39,153 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json "HTTP/1.1 200 OK"
+2026-05-15 21:29:39,303 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:29:39,333 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json "HTTP/1.1 200 OK"
+2026-05-15 21:29:39,334 [sentence_transformers.base.model] INFO: Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+2026-05-15 21:29:39,486 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:29:39,517 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json "HTTP/1.1 200 OK"
+2026-05-15 21:29:39,666 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:29:39,697 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md "HTTP/1.1 200 OK"
+2026-05-15 21:29:39,847 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:29:39,874 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json "HTTP/1.1 200 OK"
+2026-05-15 21:29:40,026 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:29:40,027 [huggingface_hub.utils._http] WARNING: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-15 21:29:40,059 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json "HTTP/1.1 200 OK"
+2026-05-15 21:29:40,217 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+2026-05-15 21:29:40,376 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:29:40,407 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-05-15 21:29:40,838 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-05-15 21:29:40,996 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-05-15 21:29:41,158 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-05-15 21:29:41,329 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-05-15 21:29:41,486 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:29:41,513 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-15 21:29:41,664 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:29:41,694 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-05-15 21:29:41,847 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:29:41,875 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-05-15 21:29:42,025 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:29:42,054 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-15 21:29:42,812 [httpx] INFO: HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-15 21:29:42,975 [httpx] INFO: HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-15 21:29:43,198 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-15 21:29:43,226 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+2026-05-15 21:29:43,384 [httpx] INFO: HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-05-15 21:29:45,255 [src.rag_core] INFO: ChromaDB collection inicializada com 0 documento(s)
+2026-05-15 21:29:47,124 [src.rag_core] INFO: 43 chunk(s) indexados no ChromaDB com sucesso.
+2026-05-15 21:29:47,125 [src.rag_core] INFO: RAG inicializado com sucesso. Total de chunks indexados: 43
+2026-05-15 21:29:47,126 [src.main_agent] INFO: RAG inicializado.
+2026-05-15 21:29:47,126 [src.main_agent] INFO: Jarvis Agent inicializado com sucesso!
+2026-05-15 21:30:48,622 [src.main_agent] INFO: Processando mensagem: 'Quais sao minhas tarefas pendentes?...'
+2026-05-15 21:30:48,622 [src.main_agent] INFO: Iteração 1 do loop de tool calling
+2026-05-15 21:30:48,640 [src.llm_client] INFO: Enviando requisição para LLM com 2 mensagem(ns)
+2026-05-15 21:30:53,364 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-15 21:30:53,372 [src.llm_client] INFO: LLM respondeu: ```json
+{"tool_call": "listar_tarefas", "arguments": {"status": "pendente"}}
+```...
+2026-05-15 21:30:53,373 [src.main_agent] INFO: LLM solicitou ferramenta: listar_tarefas({'status': 'pendente'})
+2026-05-15 21:30:53,373 [src.tools] INFO: [TOOL] listar_tarefas | entrada: status='pendente'
+2026-05-15 21:30:53,373 [src.database] INFO: Listagem tarefas (status='pendente'): 4 tarefa(s)
+2026-05-15 21:30:53,373 [src.tools] INFO: [TOOL] listar_tarefas | saída: 4 tarefa(s)
+2026-05-15 21:30:53,374 [src.main_agent] INFO: Resultado de listar_tarefas: Tarefas (4):
+- ⏳ [ID 1] Estudar capítulo 5 de IA - Redes Neurais — Status: pendente
+- ⏳ [ID 2] Fazer exercícios de SQL — Status: pendente
+- ⏳ [ID 3] I...
+2026-05-15 21:30:53,374 [src.main_agent] INFO: Iteração 2 do loop de tool calling
+2026-05-15 21:30:53,392 [src.llm_client] INFO: Enviando requisição para LLM com 4 mensagem(ns)
+2026-05-15 21:30:58,611 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-15 21:30:58,612 [src.llm_client] INFO: LLM respondeu: Você tem 4 tarefas pendentes:
+
+1.  Estudar capítulo 5 de IA - Redes Neurais.
+2.  Fazer exercícios de SQL.
+3.  Implementar RAG do trabalho de IA (essa ...
+2026-05-15 21:30:58,612 [src.main_agent] INFO: Resposta final obtida na iteração 2
+2026-05-15 21:36:09,885 [src.main_agent] INFO: Inicializando Jarvis Agent...
+2026-05-15 21:36:09,885 [src.database] INFO: Banco de dados inicializado com sucesso.
+2026-05-15 21:36:09,886 [src.database] INFO: Banco já possui dados, pulando população de exemplo.
+2026-05-15 21:36:09,886 [src.main_agent] INFO: Banco de dados pronto.
+2026-05-15 21:36:09,886 [src.rag_core] INFO: Inicializando pipeline RAG...
+2026-05-15 21:36:10,351 [src.rag_core] INFO: PDF carregado: Resumo_IA.pdf (18434 caracteres)
+2026-05-15 21:36:10,351 [src.rag_core] INFO: Total de documentos carregados: 1
+2026-05-15 21:36:10,354 [src.rag_core] INFO: Documentos divididos em 43 chunk(s) (tamanho=500, overlap=50)
+2026-05-15 21:36:10,355 [src.rag_core] INFO: Collection já possui 43 chunks indexados. Pulando re-indexação.
+2026-05-15 21:36:10,355 [src.rag_core] INFO: RAG inicializado com sucesso. Total de chunks indexados: 43
+2026-05-15 21:36:10,355 [src.main_agent] INFO: RAG inicializado.
+2026-05-15 21:36:10,355 [src.main_agent] INFO: Jarvis Agent inicializado com sucesso!
+2026-05-15 21:36:34,579 [src.main_agent] INFO: Processando mensagem: 'O que são embanddings ?...'
+2026-05-15 21:36:34,580 [src.main_agent] INFO: Iteração 1 do loop de tool calling
+2026-05-15 21:36:35,031 [src.llm_client] INFO: Enviando requisição para LLM com 2 mensagem(ns)
+2026-05-15 21:36:36,627 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-15 21:36:36,628 [src.llm_client] INFO: LLM respondeu: ```json
+{"tool_call": "buscar_material_rag", "arguments": {"query": "o que são embeddings"}}
+```...
+2026-05-15 21:36:36,628 [src.main_agent] INFO: LLM solicitou ferramenta: buscar_material_rag({'query': 'o que são embeddings'})
+2026-05-15 21:36:36,628 [src.tools] INFO: [TOOL] buscar_material_rag | entrada: query='o que são embeddings'
+2026-05-15 21:36:37,198 [src.rag_core] INFO: Busca RAG para 'o que são embeddings...': 3 resultado(s)
+2026-05-15 21:36:37,198 [src.tools] INFO: [TOOL] buscar_material_rag | saída: 3 trecho(s)
+2026-05-15 21:36:37,198 [src.main_agent] INFO: Resultado de buscar_material_rag: Trechos relevantes encontrados (3):
+
+--- Trecho 1 (Fonte: Resumo_IA.pdf) ---
+à
+ 
+consulta.
+  
+ 
+ 
+Os
+ 
+embeddings
+ 
+são
+ 
+representações
+ 
+numéricas
+ ...
+2026-05-15 21:36:37,198 [src.main_agent] INFO: Iteração 2 do loop de tool calling
+2026-05-15 21:36:37,212 [src.llm_client] INFO: Enviando requisição para LLM com 4 mensagem(ns)
+2026-05-15 21:36:41,378 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-15 21:36:41,379 [src.llm_client] INFO: LLM respondeu: Embeddings são representações numéricas de dados, como palavras, frases ou imagens, na forma de vetores densos em um espaço multidimensional. Pense ne...
+2026-05-15 21:36:41,379 [src.main_agent] INFO: Resposta final obtida na iteração 2
+2026-05-15 22:27:54,706 [asyncio] ERROR: Exception in callback Loop._read_from_self
+handle: <Handle Loop._read_from_self>
+Traceback (most recent call last):
+  File "uvloop/cbhandles.pyx", line 66, in uvloop.loop.Handle._run
+  File "uvloop/loop.pyx", line 399, in uvloop.loop.Loop._read_from_self
+  File "uvloop/loop.pyx", line 404, in uvloop.loop.Loop._invoke_signals
+  File "uvloop/loop.pyx", line 379, in uvloop.loop.Loop._ceval_process_signals
+  File "/home/sherly/Documents/projects_codes/jarvis_academico/venv/lib/python3.12/site-packages/streamlit/web/bootstrap.py", line 43, in signal_handler
+    server.stop()
+  File "/home/sherly/Documents/projects_codes/jarvis_academico/venv/lib/python3.12/site-packages/streamlit/web/server/server.py", line 120, in stop
+    cli_util.print_to_cli("  Stopping...", fg="blue")
+  File "/home/sherly/Documents/projects_codes/jarvis_academico/venv/lib/python3.12/site-packages/streamlit/cli_util.py", line 34, in print_to_cli
+    click.secho(message, **kwargs)
+  File "/home/sherly/Documents/projects_codes/jarvis_academico/venv/lib/python3.12/site-packages/click/termui.py", line 698, in secho
+    return echo(message, file=file, nl=nl, err=err, color=color)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/sherly/Documents/projects_codes/jarvis_academico/venv/lib/python3.12/site-packages/click/utils.py", line 324, in echo
+    file.write(out)  # type: ignore
+    ^^^^^^^^^^^^^^^
+OSError: [Errno 5] Input/output error
+2026-05-16 10:00:56,984 [src.main_agent] INFO: Inicializando Jarvis Agent...
+2026-05-16 10:00:56,986 [src.database] INFO: Banco de dados inicializado com sucesso.
+2026-05-16 10:00:56,986 [src.database] INFO: Banco já possui dados, pulando população de exemplo.
+2026-05-16 10:00:56,986 [src.main_agent] INFO: Banco de dados pronto.
+2026-05-16 10:00:56,986 [src.rag_core] INFO: Inicializando pipeline RAG...
+2026-05-16 10:00:57,500 [src.rag_core] INFO: PDF carregado: Resumo_IA.pdf (18434 caracteres)
+2026-05-16 10:00:57,685 [src.rag_core] INFO: PDF carregado: COBIT.pdf (23566 caracteres)
+2026-05-16 10:00:58,040 [src.rag_core] INFO: PDF carregado: Governanca_de_TI.pdf (9068 caracteres)
+2026-05-16 10:00:58,356 [src.rag_core] INFO: PDF carregado: Resumo_COMPUTACAO_ DISTRIBUIDA.pdf (35903 caracteres)
+2026-05-16 10:00:58,578 [src.rag_core] INFO: PDF carregado: Gerencia_de_projetos.pdf (27201 caracteres)
+2026-05-16 10:00:58,885 [src.rag_core] INFO: PDF carregado: Tecnicas_de_desenvolvimento.pdf (9336 caracteres)
+2026-05-16 10:00:58,912 [src.rag_core] INFO: PDF carregado: resumo_gestão_e_estrategia.pdf (3252 caracteres)
+2026-05-16 10:00:58,958 [src.rag_core] INFO: PDF carregado: Sistemas de Consenso e o Problema dos Generais Bizantinos._.pdf (11987 caracteres)
+2026-05-16 10:00:59,110 [src.rag_core] INFO: PDF carregado: COBIT_ITIL.pdf (39434 caracteres)
+2026-05-16 10:00:59,273 [src.rag_core] INFO: PDF carregado: Engenharia_Social.pdf (8255 caracteres)
+2026-05-16 10:00:59,348 [src.rag_core] INFO: PDF carregado: Desenvolvimento_de_Software.pdf (6536 caracteres)
+2026-05-16 10:00:59,858 [src.rag_core] INFO: PDF carregado: Sistemas_distribuidos.pdf (8490 caracteres)
+2026-05-16 10:01:00,050 [src.rag_core] INFO: PDF carregado: Ransomware_ Extortion Is My Business – Communications of the ACM.pdf (51547 caracteres)
+2026-05-16 10:01:00,050 [src.rag_core] INFO: Total de documentos carregados: 13
+2026-05-16 10:01:00,060 [src.rag_core] INFO: Documentos divididos em 574 chunk(s) (tamanho=500, overlap=50)
+2026-05-16 10:01:01,472 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:01:01,473 [huggingface_hub.utils._http] WARNING: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-16 10:01:01,499 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json "HTTP/1.1 200 OK"
+2026-05-16 10:01:03,189 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:01:03,216 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json "HTTP/1.1 200 OK"
+2026-05-16 10:01:04,396 [sentence_transformers.base.model] INFO: Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+2026-05-16 10:01:04,545 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:01:04,571 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json "HTTP/1.1 200 OK"
+2026-05-16 10:01:04,781 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:01:04,807 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md "HTTP/1.1 200 OK"
+2026-05-16 10:01:05,975 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:01:06,001 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json "HTTP/1.1 200 OK"
+2026-05-16 10:01:07,689 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:01:07,717 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json "HTTP/1.1 200 OK"
+2026-05-16 10:01:09,301 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+2026-05-16 10:01:09,454 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:01:09,480 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-05-16 10:01:10,162 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-05-16 10:01:10,317 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-05-16 10:01:10,470 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-05-16 10:01:10,618 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-05-16 10:01:10,765 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:01:10,791 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-16 10:01:10,942 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:01:10,968 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-05-16 10:01:11,117 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:01:11,143 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-05-16 10:01:11,292 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:01:11,319 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-16 10:01:11,476 [httpx] INFO: HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-16 10:01:11,628 [httpx] INFO: HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-16 10:01:11,892 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:01:11,920 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+2026-05-16 10:01:12,075 [httpx] INFO: HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-05-16 10:01:12,228 [src.rag_core] INFO: ChromaDB collection inicializada com 43 documento(s)
+2026-05-16 10:01:12,229 [src.rag_core] INFO: Collection já possui 43 chunks indexados. Pulando re-indexação.
+2026-05-16 10:01:12,229 [src.rag_core] INFO: RAG inicializado com sucesso. Total de chunks indexados: 43
+2026-05-16 10:01:12,229 [src.main_agent] INFO: RAG inicializado.
+2026-05-16 10:01:12,229 [src.main_agent] INFO: Jarvis Agent inicializado com sucesso!
+2026-05-16 10:02:24,971 [src.main_agent] INFO: Processando mensagem: 'Explique sobre ransomware ...'
+2026-05-16 10:02:24,972 [src.main_agent] INFO: Iteração 1 do loop de tool calling
+2026-05-16 10:02:24,988 [src.llm_client] INFO: Enviando requisição para LLM com 2 mensagem(ns)
+2026-05-16 10:02:27,420 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:02:27,428 [src.llm_client] INFO: LLM respondeu: ```json
+{"tool_call": "buscar_material_rag", "arguments": {"query": "ransomware explicação"}}
+```...
+2026-05-16 10:02:27,428 [src.main_agent] INFO: LLM solicitou ferramenta: buscar_material_rag({'query': 'ransomware explicação'})
+2026-05-16 10:02:27,429 [src.tools] INFO: [TOOL] buscar_material_rag | entrada: query='ransomware explicação'
+2026-05-16 10:02:28,588 [src.rag_core] INFO: Busca RAG para 'ransomware explicação...': 3 resultado(s)
+2026-05-16 10:02:28,588 [src.tools] INFO: [TOOL] buscar_material_rag | saída: 3 trecho(s)
+2026-05-16 10:02:28,588 [src.main_agent] INFO: Resultado de buscar_material_rag: Trechos relevantes encontrados (3):
+
+--- Trecho 1 (Fonte: Resumo_IA.pdf) ---
+informações.
+ 
+ 
+2.
+ 
+Mecanismo
+ 
+de
+ 
+Inferência:
+ 
+Ele
+ 
+é
+ 
+responsáve...
+2026-05-16 10:02:28,588 [src.main_agent] INFO: Iteração 2 do loop de tool calling
+2026-05-16 10:02:28,611 [src.llm_client] INFO: Enviando requisição para LLM com 4 mensagem(ns)
+2026-05-16 10:02:31,105 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:02:31,106 [src.llm_client] INFO: LLM respondeu: A busca por informações sobre ransomware não retornou resultados relevantes nos materiais disponíveis. Os trechos encontrados se referem a conceitos d...
+2026-05-16 10:02:31,107 [src.main_agent] INFO: Resposta final obtida na iteração 2
+2026-05-16 10:03:26,922 [src.main_agent] INFO: Processando mensagem: 'Como funciona o COBIT...'
+2026-05-16 10:03:26,923 [src.main_agent] INFO: Iteração 1 do loop de tool calling
+2026-05-16 10:03:26,940 [src.llm_client] INFO: Enviando requisição para LLM com 4 mensagem(ns)
+2026-05-16 10:03:28,323 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:03:28,324 [src.llm_client] INFO: LLM respondeu: ```json
+{"tool_call": "buscar_material_rag", "arguments": {"query": "COBIT funcionamento"}}
+```...
+2026-05-16 10:03:28,324 [src.main_agent] INFO: LLM solicitou ferramenta: buscar_material_rag({'query': 'COBIT funcionamento'})
+2026-05-16 10:03:28,324 [src.tools] INFO: [TOOL] buscar_material_rag | entrada: query='COBIT funcionamento'
+2026-05-16 10:03:28,390 [src.rag_core] INFO: Busca RAG para 'COBIT funcionamento...': 3 resultado(s)
+2026-05-16 10:03:28,390 [src.tools] INFO: [TOOL] buscar_material_rag | saída: 3 trecho(s)
+2026-05-16 10:03:28,391 [src.main_agent] INFO: Resultado de buscar_material_rag: Trechos relevantes encontrados (3):
+
+--- Trecho 1 (Fonte: Resumo_IA.pdf) ---
+decimais
+ 
+que
+ 
+capturam
+ 
+o
+ 
+significado
+ 
+semântico
+ 
+do
+ 
+conteúdo.
+...
+2026-05-16 10:03:28,391 [src.main_agent] INFO: Iteração 2 do loop de tool calling
+2026-05-16 10:03:28,405 [src.llm_client] INFO: Enviando requisição para LLM com 6 mensagem(ns)
+2026-05-16 10:03:31,195 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:03:31,196 [src.llm_client] INFO: LLM respondeu: Parece que a busca por informações sobre COBIT não retornou resultados relevantes nos materiais disponíveis. Os trechos recuperados são sobre represen...
+2026-05-16 10:03:31,196 [src.main_agent] INFO: Resposta final obtida na iteração 2
+2026-05-16 10:18:00,977 [src.main_agent] INFO: Inicializando Jarvis Agent...
+2026-05-16 10:18:00,977 [src.database] INFO: Banco de dados inicializado com sucesso.
+2026-05-16 10:18:00,977 [src.database] INFO: Banco já possui dados, pulando população de exemplo.
+2026-05-16 10:18:00,977 [src.main_agent] INFO: Banco de dados pronto.
+2026-05-16 10:18:00,977 [src.rag_core] INFO: Inicializando pipeline RAG...
+2026-05-16 10:18:01,474 [src.rag_core] INFO: PDF carregado: Resumo_IA.pdf (18434 caracteres)
+2026-05-16 10:18:01,655 [src.rag_core] INFO: PDF carregado: COBIT.pdf (23566 caracteres)
+2026-05-16 10:18:01,998 [src.rag_core] INFO: PDF carregado: Governanca_de_TI.pdf (9068 caracteres)
+2026-05-16 10:18:02,297 [src.rag_core] INFO: PDF carregado: Resumo_COMPUTACAO_ DISTRIBUIDA.pdf (35903 caracteres)
+2026-05-16 10:18:02,697 [src.rag_core] INFO: PDF carregado: Gerencia_de_projetos.pdf (27201 caracteres)
+2026-05-16 10:18:02,813 [src.rag_core] INFO: PDF carregado: Tecnicas_de_desenvolvimento.pdf (9336 caracteres)
+2026-05-16 10:18:02,842 [src.rag_core] INFO: PDF carregado: resumo_gestão_e_estrategia.pdf (3252 caracteres)
+2026-05-16 10:18:02,887 [src.rag_core] INFO: PDF carregado: Sistemas de Consenso e o Problema dos Generais Bizantinos._.pdf (11987 caracteres)
+2026-05-16 10:18:03,033 [src.rag_core] INFO: PDF carregado: COBIT_ITIL.pdf (39434 caracteres)
+2026-05-16 10:18:03,188 [src.rag_core] INFO: PDF carregado: Engenharia_Social.pdf (8255 caracteres)
+2026-05-16 10:18:03,262 [src.rag_core] INFO: PDF carregado: Desenvolvimento_de_Software.pdf (6536 caracteres)
+2026-05-16 10:18:03,762 [src.rag_core] INFO: PDF carregado: Sistemas_distribuidos.pdf (8490 caracteres)
+2026-05-16 10:18:03,929 [src.rag_core] INFO: PDF carregado: Ransomware_ Extortion Is My Business – Communications of the ACM.pdf (51547 caracteres)
+2026-05-16 10:18:03,929 [src.rag_core] INFO: Total de documentos carregados: 13
+2026-05-16 10:18:03,938 [src.rag_core] INFO: Documentos divididos em 574 chunk(s) (tamanho=500, overlap=50)
+2026-05-16 10:18:04,261 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:18:04,287 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json "HTTP/1.1 200 OK"
+2026-05-16 10:18:04,437 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:18:04,437 [huggingface_hub.utils._http] WARNING: Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+2026-05-16 10:18:04,465 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json "HTTP/1.1 200 OK"
+2026-05-16 10:18:04,466 [sentence_transformers.base.model] INFO: Loading SentenceTransformer model from sentence-transformers/all-MiniLM-L6-v2.
+2026-05-16 10:18:04,615 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config_sentence_transformers.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:18:04,645 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config_sentence_transformers.json "HTTP/1.1 200 OK"
+2026-05-16 10:18:04,796 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/README.md "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:18:04,823 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/README.md "HTTP/1.1 200 OK"
+2026-05-16 10:18:04,976 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/modules.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:18:05,003 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/modules.json "HTTP/1.1 200 OK"
+2026-05-16 10:18:05,151 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/sentence_bert_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:18:05,178 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/sentence_bert_config.json "HTTP/1.1 200 OK"
+2026-05-16 10:18:05,334 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/adapter_config.json "HTTP/1.1 404 Not Found"
+2026-05-16 10:18:05,487 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:18:05,514 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-05-16 10:18:05,741 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/processor_config.json "HTTP/1.1 404 Not Found"
+2026-05-16 10:18:05,890 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-05-16 10:18:06,041 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/video_preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-05-16 10:18:06,199 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/preprocessor_config.json "HTTP/1.1 404 Not Found"
+2026-05-16 10:18:06,347 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:18:06,374 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-16 10:18:06,521 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:18:06,548 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-05-16 10:18:06,697 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:18:06,724 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/config.json "HTTP/1.1 200 OK"
+2026-05-16 10:18:06,873 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/tokenizer_config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:18:06,900 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/tokenizer_config.json "HTTP/1.1 200 OK"
+2026-05-16 10:18:07,053 [httpx] INFO: HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main/additional_chat_templates?recursive=false&expand=false "HTTP/1.1 404 Not Found"
+2026-05-16 10:18:07,206 [httpx] INFO: HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2/tree/main?recursive=true&expand=false "HTTP/1.1 200 OK"
+2026-05-16 10:18:07,400 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2/resolve/main/1_Pooling/config.json "HTTP/1.1 307 Temporary Redirect"
+2026-05-16 10:18:07,426 [httpx] INFO: HTTP Request: HEAD https://huggingface.co/api/resolve-cache/models/sentence-transformers/all-MiniLM-L6-v2/c9745ed1d9f207416be6d2e6f8de32d1f16199bf/1_Pooling%2Fconfig.json "HTTP/1.1 200 OK"
+2026-05-16 10:18:07,579 [httpx] INFO: HTTP Request: GET https://huggingface.co/api/models/sentence-transformers/all-MiniLM-L6-v2 "HTTP/1.1 200 OK"
+2026-05-16 10:18:07,591 [src.rag_core] INFO: ChromaDB collection inicializada com 43 documento(s)
+2026-05-16 10:18:07,592 [src.rag_core] INFO: Collection já possui 43 chunks indexados. Pulando re-indexação.
+2026-05-16 10:18:07,592 [src.rag_core] INFO: RAG inicializado com sucesso. Total de chunks indexados: 43
+2026-05-16 10:18:07,593 [src.main_agent] INFO: RAG inicializado.
+2026-05-16 10:18:07,593 [src.main_agent] INFO: Jarvis Agent inicializado com sucesso!
+2026-05-16 10:18:26,669 [src.main_agent] INFO: Processando mensagem: 'Fale sobre IA...'
+2026-05-16 10:18:26,670 [src.main_agent] INFO: Iteração 1 do loop de tool calling
+2026-05-16 10:18:26,685 [src.llm_client] INFO: Enviando requisição para LLM com 2 mensagem(ns)
+2026-05-16 10:18:28,660 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:18:28,667 [src.llm_client] INFO: LLM respondeu: Para fornecer informações sobre IA, vou precisar buscar em meus materiais de estudo.
+
+```json
+{"tool_call": "buscar_material_rag", "arguments": {"quer...
+2026-05-16 10:18:28,667 [src.main_agent] INFO: LLM solicitou ferramenta: buscar_material_rag({'query': 'inteligência artificial'})
+2026-05-16 10:18:28,667 [src.tools] INFO: [TOOL] buscar_material_rag | entrada: query='inteligência artificial'
+2026-05-16 10:18:28,778 [src.rag_core] INFO: Busca RAG para 'inteligência artificial...': 3 resultado(s)
+2026-05-16 10:18:28,778 [src.tools] INFO: [TOOL] buscar_material_rag | saída: 3 trecho(s)
+2026-05-16 10:18:28,779 [src.main_agent] INFO: Resultado de buscar_material_rag: Trechos relevantes encontrados (3):
+
+--- Trecho 1 (Fonte: Resumo_IA.pdf) ---
+a
+ 
+entrada
+ 
+e
+ 
+a
+ 
+saída
+ 
+dos
+ 
+dados.
+ 
+ 
+ 
+1.
+ 
+Relação
+ 
+Hierárqui...
+2026-05-16 10:18:28,779 [src.main_agent] INFO: Iteração 2 do loop de tool calling
+2026-05-16 10:18:28,794 [src.llm_client] INFO: Enviando requisição para LLM com 4 mensagem(ns)
+2026-05-16 10:18:32,707 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:18:32,708 [src.llm_client] INFO: LLM respondeu: A Inteligência Artificial (IA) é um campo amplo que busca criar sistemas capazes de realizar tarefas que normalmente exigiriam inteligência humana. De...
+2026-05-16 10:18:32,708 [src.main_agent] INFO: Resposta final obtida na iteração 2
+2026-05-16 10:18:52,259 [src.main_agent] INFO: Processando mensagem: 'Fale sobre COBIT ...'
+2026-05-16 10:18:52,260 [src.main_agent] INFO: Iteração 1 do loop de tool calling
+2026-05-16 10:18:52,278 [src.llm_client] INFO: Enviando requisição para LLM com 4 mensagem(ns)
+2026-05-16 10:18:53,698 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:18:53,699 [src.llm_client] INFO: LLM respondeu: ```json
+{"tool_call": "buscar_material_rag", "arguments": {"query": "COBIT"}}
+```...
+2026-05-16 10:18:53,699 [src.main_agent] INFO: LLM solicitou ferramenta: buscar_material_rag({'query': 'COBIT'})
+2026-05-16 10:18:53,699 [src.tools] INFO: [TOOL] buscar_material_rag | entrada: query='COBIT'
+2026-05-16 10:18:53,710 [src.rag_core] INFO: Busca RAG para 'COBIT...': 3 resultado(s)
+2026-05-16 10:18:53,710 [src.tools] INFO: [TOOL] buscar_material_rag | saída: 3 trecho(s)
+2026-05-16 10:18:53,710 [src.main_agent] INFO: Resultado de buscar_material_rag: Trechos relevantes encontrados (3):
+
+--- Trecho 1 (Fonte: Resumo_IA.pdf) ---
+decimais
+ 
+que
+ 
+capturam
+ 
+o
+ 
+significado
+ 
+semântico
+ 
+do
+ 
+conteúdo.
+...
+2026-05-16 10:18:53,710 [src.main_agent] INFO: Iteração 2 do loop de tool calling
+2026-05-16 10:18:53,732 [src.llm_client] INFO: Enviando requisição para LLM com 6 mensagem(ns)
+2026-05-16 10:18:57,776 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:18:57,777 [src.llm_client] INFO: LLM respondeu: Os trechos que encontrei sobre COBIT não fornecem informações sobre o assunto. Parece que a busca foi realizada em um documento sobre representações d...
+2026-05-16 10:18:57,777 [src.main_agent] INFO: Resposta final obtida na iteração 2
+2026-05-16 10:19:44,362 [src.main_agent] INFO: Processando mensagem: 'Busque no documento COBIT_ITIL.pdf...'
+2026-05-16 10:19:44,363 [src.main_agent] INFO: Iteração 1 do loop de tool calling
+2026-05-16 10:19:44,377 [src.llm_client] INFO: Enviando requisição para LLM com 6 mensagem(ns)
+2026-05-16 10:19:45,851 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:19:45,852 [src.llm_client] INFO: LLM respondeu: ```json
+{"tool_call": "buscar_material_rag", "arguments": {"query": "COBIT"}}
+```...
+2026-05-16 10:19:45,852 [src.main_agent] INFO: LLM solicitou ferramenta: buscar_material_rag({'query': 'COBIT'})
+2026-05-16 10:19:45,852 [src.tools] INFO: [TOOL] buscar_material_rag | entrada: query='COBIT'
+2026-05-16 10:19:45,863 [src.rag_core] INFO: Busca RAG para 'COBIT...': 3 resultado(s)
+2026-05-16 10:19:45,863 [src.tools] INFO: [TOOL] buscar_material_rag | saída: 3 trecho(s)
+2026-05-16 10:19:45,863 [src.main_agent] INFO: Resultado de buscar_material_rag: Trechos relevantes encontrados (3):
+
+--- Trecho 1 (Fonte: Resumo_IA.pdf) ---
+decimais
+ 
+que
+ 
+capturam
+ 
+o
+ 
+significado
+ 
+semântico
+ 
+do
+ 
+conteúdo.
+...
+2026-05-16 10:19:45,863 [src.main_agent] INFO: Iteração 2 do loop de tool calling
+2026-05-16 10:19:45,879 [src.llm_client] INFO: Enviando requisição para LLM com 8 mensagem(ns)
+2026-05-16 10:19:51,871 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:19:51,872 [src.llm_client] INFO: LLM respondeu: Os trechos que encontrei no documento COBIT_ITIL.pdf não fornecem informações sobre COBIT em si. Pelo contrário, parecem ser extraídos de um documento...
+2026-05-16 10:19:51,872 [src.main_agent] INFO: Resposta final obtida na iteração 2
+2026-05-16 10:20:26,875 [src.main_agent] INFO: Processando mensagem: 'listar tarefas ...'
+2026-05-16 10:20:26,875 [src.main_agent] INFO: Iteração 1 do loop de tool calling
+2026-05-16 10:20:26,894 [src.llm_client] INFO: Enviando requisição para LLM com 8 mensagem(ns)
+2026-05-16 10:20:28,283 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:20:28,284 [src.llm_client] INFO: LLM respondeu: ```json
+{"tool_call": "listar_tarefas", "arguments": {}}
+```...
+2026-05-16 10:20:28,284 [src.main_agent] INFO: LLM solicitou ferramenta: listar_tarefas({})
+2026-05-16 10:20:28,284 [src.tools] INFO: [TOOL] listar_tarefas | entrada: status='None'
+2026-05-16 10:20:28,284 [src.database] INFO: Listagem tarefas (status='None'): 4 tarefa(s)
+2026-05-16 10:20:28,284 [src.tools] INFO: [TOOL] listar_tarefas | saída: 4 tarefa(s)
+2026-05-16 10:20:28,284 [src.main_agent] INFO: Resultado de listar_tarefas: Tarefas (4):
+- ⏳ [ID 1] Estudar capítulo 5 de IA - Redes Neurais — Status: pendente
+- ⏳ [ID 2] Fazer exercícios de SQL — Status: pendente
+- ⏳ [ID 3] I...
+2026-05-16 10:20:28,284 [src.main_agent] INFO: Iteração 2 do loop de tool calling
+2026-05-16 10:20:28,299 [src.llm_client] INFO: Enviando requisição para LLM com 10 mensagem(ns)
+2026-05-16 10:20:32,371 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:20:32,372 [src.llm_client] INFO: LLM respondeu: Você tem 4 tarefas pendentes no momento:
+
+1.  **Estudar capítulo 5 de IA - Redes Neurais:** É importante dedicar um tempo para se aprofundar nesse tóp...
+2026-05-16 10:20:32,372 [src.main_agent] INFO: Resposta final obtida na iteração 2
+2026-05-16 10:20:50,872 [src.database] INFO: Tarefa adicionada: id=5, desc='Estudar inglês', agenda_id=None
+2026-05-16 10:21:06,345 [src.main_agent] INFO: Processando mensagem: 'listar tarefas ...'
+2026-05-16 10:21:06,346 [src.main_agent] INFO: Iteração 1 do loop de tool calling
+2026-05-16 10:21:06,359 [src.llm_client] INFO: Enviando requisição para LLM com 10 mensagem(ns)
+2026-05-16 10:21:09,993 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:21:09,994 [src.llm_client] INFO: LLM respondeu: Você tem 3 tarefas pendentes no momento:
+
+1.  **Estudar capítulo 5 de IA - Redes Neurais:** É importante dedicar um tempo para se aprofundar nesse tóp...
+2026-05-16 10:21:09,994 [src.main_agent] INFO: Resposta final obtida na iteração 1
+2026-05-16 10:21:35,101 [src.main_agent] INFO: Processando mensagem: 'liste todas as tarefs ...'
+2026-05-16 10:21:35,101 [src.main_agent] INFO: Iteração 1 do loop de tool calling
+2026-05-16 10:21:35,115 [src.llm_client] INFO: Enviando requisição para LLM com 12 mensagem(ns)
+2026-05-16 10:21:38,288 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:21:38,289 [src.llm_client] INFO: LLM respondeu: Você tem 4 tarefas no total:
+
+**Tarefas Pendentes:**
+
+1.  **Estudar capítulo 5 de IA - Redes Neurais**
+2.  **Fazer exercícios de SQL**
+3.  **Implement...
+2026-05-16 10:21:38,289 [src.main_agent] INFO: Resposta final obtida na iteração 1
+2026-05-16 10:22:18,520 [src.database] INFO: Evento adicionado: id=9, desc='Aula de inglês', data='2026-05-16 10:18', tipo='aula'
+2026-05-16 10:22:30,374 [src.main_agent] INFO: Processando mensagem: 'O que tenho para hoje ...'
+2026-05-16 10:22:30,374 [src.main_agent] INFO: Iteração 1 do loop de tool calling
+2026-05-16 10:22:30,390 [src.llm_client] INFO: Enviando requisição para LLM com 14 mensagem(ns)
+2026-05-16 10:22:32,629 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:22:32,629 [src.llm_client] INFO: LLM respondeu: ```json
+{"tool_call": "consultar_agenda", "arguments": {"data_inicio": "2026-05-16", "data_fim": "2026-05-16"}}
+```...
+2026-05-16 10:22:32,629 [src.main_agent] INFO: LLM solicitou ferramenta: consultar_agenda({'data_inicio': '2026-05-16', 'data_fim': '2026-05-16'})
+2026-05-16 10:22:32,630 [src.tools] INFO: [TOOL] consultar_agenda | entrada: data_inicio='2026-05-16', data_fim='2026-05-16'
+2026-05-16 10:22:32,630 [src.database] INFO: Consulta agenda: inicio='2026-05-16', fim='2026-05-16' → 3 evento(s)
+2026-05-16 10:22:32,630 [src.tools] INFO: [TOOL] consultar_agenda | saída: 3 evento(s)
+2026-05-16 10:22:32,630 [src.main_agent] INFO: Resultado de consultar_agenda: Eventos encontrados (3):
+- [AULA] Aula de Inteligência Artificial — 2026-05-16 08:00 (ID: 1)
+- [AULA] Aula de Banco de Dados — 2026-05-16 10:00 (ID: 2...
+2026-05-16 10:22:32,630 [src.main_agent] INFO: Iteração 2 do loop de tool calling
+2026-05-16 10:22:32,644 [src.llm_client] INFO: Enviando requisição para LLM com 16 mensagem(ns)
+2026-05-16 10:22:35,129 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:22:35,130 [src.llm_client] INFO: LLM respondeu: Hoje, sábado, você tem três aulas programadas:
+
+*   **Inteligência Artificial:** às 8h da manhã.
+*   **Banco de Dados:** às 10h.
+*   **Inglês:** às 10...
+2026-05-16 10:22:35,130 [src.main_agent] INFO: Resposta final obtida na iteração 2
+2026-05-16 10:22:58,034 [src.database] INFO: Tarefa adicionada: id=6, desc='Estudar inglês módulo 1', agenda_id=None
+2026-05-16 10:23:07,774 [src.main_agent] INFO: Processando mensagem: 'Listar tarefas ...'
+2026-05-16 10:23:07,777 [src.main_agent] INFO: Iteração 1 do loop de tool calling
+2026-05-16 10:23:07,792 [src.llm_client] INFO: Enviando requisição para LLM com 16 mensagem(ns)
+2026-05-16 10:23:11,800 [httpx] INFO: HTTP Request: POST https://llm.liaufms.org/v1/gemma-3-12b-it/chat/completions "HTTP/1.1 200 OK"
+2026-05-16 10:23:11,801 [src.llm_client] INFO: LLM respondeu: Você tem 3 tarefas pendentes no momento:
+
+1.  **Estudar capítulo 5 de IA - Redes Neurais:** É importante dedicar um tempo para se aprofundar nesse tóp...
+2026-05-16 10:23:11,801 [src.main_agent] INFO: Resposta final obtida na iteração 1
