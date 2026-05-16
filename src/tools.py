@@ -184,6 +184,9 @@ def executar_ferramenta(nome: str, argumentos: dict) -> str:
     """
     Executa uma ferramenta pelo nome com os argumentos fornecidos.
 
+    Realiza coerção de tipos para garantir que argumentos numéricos
+    sejam convertidos corretamente (o LLM pode enviar como string).
+
     Args:
         nome: Nome da ferramenta.
         argumentos: Dicionário com os argumentos.
@@ -196,5 +199,27 @@ def executar_ferramenta(nome: str, argumentos: dict) -> str:
         logger.error(erro)
         return erro
 
+    # Coerção de tipos — o LLM pode enviar números como strings
+    args = dict(argumentos)
+
+    # Converte tarefa_id para int se presente
+    if "tarefa_id" in args and args["tarefa_id"] is not None:
+        try:
+            args["tarefa_id"] = int(args["tarefa_id"])
+        except (ValueError, TypeError):
+            return f"Erro: tarefa_id '{args['tarefa_id']}' não é um número válido."
+
+    # Converte agenda_id para int se presente
+    if "agenda_id" in args and args["agenda_id"] is not None:
+        try:
+            args["agenda_id"] = int(args["agenda_id"])
+        except (ValueError, TypeError):
+            args["agenda_id"] = None
+
+    # Trata status vazio como None (sem filtro)
+    if "status" in args and not args["status"]:
+        args["status"] = None
+
     func = TOOL_MAP[nome]
-    return func(**argumentos)
+    return func(**args)
+

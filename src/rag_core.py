@@ -149,33 +149,46 @@ def indexar(chunks: list[dict]):
     Indexa os chunks no ChromaDB.
 
     Os embeddings são gerados automaticamente pela embedding function
-    configurada na collection.
+    configurada na collection. Detecta e adiciona apenas chunks novos,
+    permitindo que novos documentos sejam indexados sem perder os antigos.
 
     Args:
         chunks: Lista de dicts com 'texto', 'fonte' e 'chunk_id'.
     """
     collection = _get_collection()
 
-    # Verifica se já existem documentos indexados
-    if collection.count() > 0:
-        logger.info(f"Collection já possui {collection.count()} chunks indexados. Pulando re-indexação.")
-        return
-
     if not chunks:
         logger.warning("Nenhum chunk para indexar.")
         return
 
+    # Obtém IDs já existentes na collection para evitar duplicatas
+    ids_existentes = set()
+    if collection.count() > 0:
+        # Recupera todos os IDs já indexados
+        todos = collection.get()
+        ids_existentes = set(todos["ids"])
+        logger.info(f"Collection já possui {len(ids_existentes)} chunk(s) indexados.")
+
+    # Filtra apenas chunks novos (que ainda não foram indexados)
+    chunks_novos = [c for c in chunks if c["chunk_id"] not in ids_existentes]
+
+    if not chunks_novos:
+        logger.info("Nenhum chunk novo para indexar. Todos os documentos já estão indexados.")
+        return
+
+    logger.info(f"{len(chunks_novos)} chunk(s) novo(s) detectado(s) para indexação.")
+
     # Prepara dados para inserção em batches
     batch_size = 50
-    for i in range(0, len(chunks), batch_size):
-        batch = chunks[i:i + batch_size]
+    for i in range(0, len(chunks_novos), batch_size):
+        batch = chunks_novos[i:i + batch_size]
         collection.add(
             documents=[c["texto"] for c in batch],
             metadatas=[{"fonte": c["fonte"]} for c in batch],
             ids=[c["chunk_id"] for c in batch]
         )
 
-    logger.info(f"{len(chunks)} chunk(s) indexados no ChromaDB com sucesso.")
+    logger.info(f"{len(chunks_novos)} chunk(s) novo(s) indexados no ChromaDB com sucesso.")
 
 
 def buscar(query: str, n_results: int = 3) -> list[dict]:
