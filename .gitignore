@@ -6,5 +6,8 @@ __pycache__/
 vector_db/
 *.db
 .streamlit/
-Trabalho_IA
+
+Trabalho_IA.md
+
 jarvis.log
+*.log

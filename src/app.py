@@ -7,6 +7,7 @@ Implementa um chat interativo com:
 - Exibição de logs de tool calling em expanders
 """
 
+from logging import PlaceHolder
 import streamlit as st
 import logging
 import sys
@@ -47,6 +48,28 @@ st.set_page_config(
 # =============================================================================
 st.markdown("""
 <style>
+    /* Ocultar o menu (3 pontos) e o botão de deploy, mantendo o botão de abrir a sidebar (que fica à esquerda no header) */
+    #MainMenu { visibility: hidden; }
+    .stAppDeployButton { display: none !important; }
+    [data-testid="stHeaderActionElements"] { display: none !important; }
+
+    /* Zera o tamanho da fonte do texto original para fazê-lo sumir */
+    div[data-testid="InputInstructions"] > span {
+        font-size: 0 !important;
+    }
+
+    /* Injeta o seu novo texto customizado no lugar */
+    div[data-testid="InputInstructions"] > span::after {
+        content: "" !important; /* <-- Altere o texto aqui como preferir */
+        font-size: 11px !important; /* Devolve o tamanho correto para a dica */
+        color: #a3a8b4 !important;  /* Um cinza discreto que combina com o tema */
+        font-style: italic;         /* Opcional: deixa em itálico para parecer uma dica */
+    }
+    /* Esconder os botões + e - (steppers) do number_input */
+    [data-testid="stNumberInputStepUp"], 
+    [data-testid="stNumberInputStepDown"] {
+        display: none !important;
+    }
     /* Importa fonte moderna */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -153,6 +176,49 @@ with st.sidebar:
     st.markdown("## 🎓 JARVIS Acadêmico")
     st.markdown("---")
 
+
+    # Ações rápidas — Agenda
+    st.markdown("### 📅 Adicionar Evento")
+    with st.form("form_evento", clear_on_submit=True):
+        desc_evento = st.text_input("Descrição do evento", placeholder="Ex: Aula de IA")
+        data_evento = st.date_input("Data")
+        hora_evento = st.time_input("Hora")
+        tipo_evento = st.selectbox("Tipo", ["aula", "prova", "trabalho", "reuniao", "outro"])
+        submit_evento = st.form_submit_button("➕ Adicionar Evento")
+
+        if submit_evento and desc_evento.strip():
+            data_hora = f"{data_evento} {hora_evento.strftime('%H:%M')}"
+            database.adicionar_evento(desc_evento, data_hora, tipo_evento)
+            st.success(f"Evento '{desc_evento}' adicionado!")
+            st.rerun()
+
+    st.markdown("---")
+
+    # Ações rápidas — Tarefas
+    st.markdown("### ✅ Adicionar Tarefa Rápida")
+    with st.form("form_tarefa", clear_on_submit=True):
+        desc_tarefa = st.text_input("Descrição da tarefa", placeholder="Ex: Estudar cap. 5")
+        id_agenda = st.number_input("ID da agenda(Opcional)", min_value=0, step=1, value=None, placeholder="Ex: 5")
+        submit_tarefa = st.form_submit_button("➕ Adicionar Tarefa")
+
+        if submit_tarefa and desc_tarefa.strip():
+            if id_agenda is not None:
+                id_agenda = int(id_agenda)
+            database.adicionar_tarefa(desc_tarefa, id_agenda)
+            st.success(f"Tarefa '{desc_tarefa}' adicionada!")
+            st.rerun()
+
+    st.markdown("---")
+
+
+    # Botão para limpar chat
+    if st.button("🗑️ Limpar Conversa", use_container_width=True):
+        st.session_state.messages = []
+        st.session_state.tool_logs_history = []
+        st.rerun()
+    
+    st.markdown("---")
+
     # Status do RAG
     st.markdown("### 📚 Status do RAG")
     try:
@@ -167,43 +233,6 @@ with st.sidebar:
     except Exception:
         st.warning("RAG não inicializado.")
 
-    st.markdown("---")
-
-    # Ações rápidas — Agenda
-    st.markdown("### 📅 Adicionar Evento")
-    with st.form("form_evento", clear_on_submit=True):
-        desc_evento = st.text_input("Descrição do evento", placeholder="Ex: Aula de IA")
-        data_evento = st.date_input("Data")
-        hora_evento = st.time_input("Hora")
-        tipo_evento = st.selectbox("Tipo", ["aula", "prova", "trabalho", "reuniao", "outro"])
-        submit_evento = st.form_submit_button("➕ Adicionar Evento")
-
-        if submit_evento and desc_evento:
-            data_hora = f"{data_evento} {hora_evento.strftime('%H:%M')}"
-            database.adicionar_evento(desc_evento, data_hora, tipo_evento)
-            st.success(f"Evento '{desc_evento}' adicionado!")
-            st.rerun()
-
-    st.markdown("---")
-
-    # Ações rápidas — Tarefas
-    st.markdown("### ✅ Adicionar Tarefa Rápida")
-    with st.form("form_tarefa", clear_on_submit=True):
-        desc_tarefa = st.text_input("Descrição da tarefa", placeholder="Ex: Estudar cap. 5")
-        submit_tarefa = st.form_submit_button("➕ Adicionar Tarefa")
-
-        if submit_tarefa and desc_tarefa:
-            database.adicionar_tarefa(desc_tarefa)
-            st.success(f"Tarefa '{desc_tarefa}' adicionada!")
-            st.rerun()
-
-    st.markdown("---")
-
-    # Botão para limpar chat
-    if st.button("🗑️ Limpar Conversa", use_container_width=True):
-        st.session_state.messages = []
-        st.session_state.tool_logs_history = []
-        st.rerun()
 
 # =============================================================================
 # Área principal — Chat
