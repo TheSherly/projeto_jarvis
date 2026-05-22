@@ -56,10 +56,6 @@ jarvis_academico/
 ```
 ```markdown
 ```mermaid
----
-config:
-  layout: elk
----
 flowchart TB
     appPy["app.py — Streamlit UI"] --> mainAgent["main_agent.py"]
     mainAgent --> llmClient["llm_client.py"] & tools["tools.py"] & prompts["prompts.py"]
@@ -106,7 +102,7 @@ O RAG é o motor que permite ao JARVIS ler, compreender e consultar os seus mate
 
 #### Indexação
 1. **Extração de Texto (PyPDF2)**: O sistema abre cada documento PDF e extrai todo o texto bruto contido nele, ignorando imagens e formatações complexas.
-2. **Chunking**: Como a IA não consegue ler um livro inteiro de uma só vez, o texto extraído é cortado em pequenos pedaços (chunks) usando o `RecursiveCharacterTextSplitter`. O sistema cria sobreposições(overlap) entre esses pedaços (ex: o final do trecho A é o início do trecho B) para garantir que nenhuma frase ou contexto seja cortado ao meio.
+2. **Chunking**: Como a IA não consegue ler um livro inteiro de uma só vez, o texto extraído é cortado em pequenos pedaços (chunks) usando o `RecursiveCharacterTextSplitter`. O sistema cria sobreposições(overlap) entre esses pedaços (ex: o final do trecho A é o início do trecho B) para garantir que nenhuma frase ou contexto seja cortado ao meio. Dentro do arquivo `rag_core.py`, pode-se configurar o tamanho do chunk e o overlap, em que definimos o tamanho do chunk em 500 caracteres e o overlap em 50 caracteres, essa quantidade de chunks, juntamente com os overlaps garantem que nenhum contexto seja cortado ao meio e afete na resposta dada pela llm.
 3. **Transformação matemática em Embeddings (all-MiniLM-L6-v2)**: O modelo Hugging Face (`all-MiniLM-L6-v2`) lê cada pequeno trecho de texto e converte-o numa coordenada matemática (um vetor de 384 dimensões). Textos com significados parecidos (ex: "cachorro" e "cão") recebem coordenadas muito próximas.
 4. **Armazenamento vetorial**: Estas coordenadas e os textos originais são guardados num banco de dados especial chamado ChromaDB.
 
@@ -138,7 +134,7 @@ O RAG é o motor que permite ao JARVIS ler, compreender e consultar os seus mate
 - [x] TOOL CALLING
 - [] Melhorias de aprendizado com funcionalidade interativa
 - [] Avaliação do sistema com 10 perguntas
-- [] Identificar 3 falhas
+- [] Análise de erros: Identificar 3 falhas
 - [x] Construir dataset e incluir origem, tipo e limitações dos dados
 - [x] Separação de responsabilidades
 - [x] Logs para monitoramento e debug
