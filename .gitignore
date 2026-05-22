@@ -5,8 +5,8 @@ __pycache__/
 *.pyo
 vector_db/
 *.db
-.streamlit/
-
+.streamlit/*
+!src/.streamlit/config.toml
 Trabalho_IA.md
 
 jarvis.log
