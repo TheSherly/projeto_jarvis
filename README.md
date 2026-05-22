@@ -54,7 +54,7 @@ jarvis_academico/
 └── requirements.txt       # Dependências do projeto
 
 ```
-```markdown
+
 ```mermaid
 flowchart TB
     appPy["app.py — Streamlit UI"] --> mainAgent["main_agent.py"]
