@@ -10,7 +10,7 @@ Siga as instruções abaixo para rodar o projeto localmente, lembrando que é ne
 $ git clone https://github.com/TheSherly/projeto_jarvis.git
 
 # 2. Entrar na pasta do projeto
-$ cd jarvis_academico
+$ cd projeto_jarvis
 
 # 3. Criar o ambiente virtual (venv)
 $ python -m venv venv
@@ -32,7 +32,7 @@ GEMMA_API_KEY=COLE SUA API KEY AQUI
 
 Inicializando a aplicação: com o ambiente virtual ativado e a .env configurada, execute o comando abaixo para iniciar o Streamlit: 
 ```bash
-$ streamlit run app.py
+$ streamlit run src/app.py
 ```
 
 ## Arquitetura do projeto (Modelo MVC):
