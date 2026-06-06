@@ -16,15 +16,16 @@ load_dotenv()
 logger = logging.getLogger(__name__)
 
 # Configuração do cliente
-GEMMA_BASE_URL = os.getenv("GEMMA_BASE_URL", "https://llm.liaufms.org/v1/gemma-3-12b-it")
+GEMMA_BASE_URL = os.getenv("GEMMA_BASE_URL", "https://llm.liaufms.org/v1/qwen2-5-14b-instruct-awq")
 GEMMA_API_KEY = os.getenv("GEMMA_API_KEY", "")
-MODEL_NAME = "google/gemma-3-12b-it"
+MODEL_NAME = os.getenv("LLM_MODEL_NAME", "Qwen/Qwen2.5-14B-Instruct-AWQ")
 
 
 def get_client() -> OpenAI:
-    """Cria e retorna um cliente OpenAI configurado para o Gemma 12B."""
+    """Cria e retorna um cliente OpenAI configurado para o LLM."""
     if not GEMMA_API_KEY:
         raise ValueError("GEMMA_API_KEY não encontrada. Configure o arquivo .env.")
+    logger.debug(f"Conectando ao LLM: base_url={GEMMA_BASE_URL}, model={MODEL_NAME}")
     return OpenAI(base_url=GEMMA_BASE_URL, api_key=GEMMA_API_KEY)
 
 
