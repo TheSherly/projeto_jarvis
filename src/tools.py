@@ -9,7 +9,7 @@ Todas as chamadas são logadas com: ferramenta, entrada e saída.
 
 import json
 import logging
-from src import database, rag_core
+from src import database, rag_core, llm_client
 
 logger = logging.getLogger(__name__)
 
@@ -197,6 +197,100 @@ def adicionar_agenda(descricao_evento: str, data: str, tipo_evento: str = "outro
         return erro
 
 
+def gerar_questionario(tema: str, num_questoes: int = 5) -> str:
+    """
+    Gera um questionário de múltipla escolha baseado nos materiais de estudo.
+
+    Busca conteúdo relevante via RAG e envia ao LLM para gerar questões
+    estruturadas em formato JSON.
+
+    Args:
+        tema: Tema ou tópico para gerar as questões.
+        num_questoes: Número de questões a gerar (padrão: 5).
+
+    Returns:
+        String JSON com as questões geradas.
+    """
+    logger.info(f"[TOOL] gerar_questionario | entrada: tema='{tema}', num_questoes={num_questoes}")
+
+    try:
+        # Busca conteúdo relevante nos materiais
+        resultados = rag_core.buscar(tema, n_results=5)
+
+        if not resultados:
+            return json.dumps({"erro": "Nenhum material encontrado sobre este tema."}, ensure_ascii=False)
+
+        # Monta o contexto com os trechos encontrados
+        contexto = "\n\n".join([f"[Fonte: {r['fonte']}]\n{r['texto']}" for r in resultados])
+
+        # Identifica os conteúdos/fontes únicos para categorização
+        fontes = list(set(r["fonte"] for r in resultados))
+
+        prompt_quiz = f"""Com base no conteúdo acadêmico abaixo, gere exatamente {num_questoes} questões de múltipla escolha.
+
+CONTEÚDO:
+{contexto}
+
+RETORNE APENAS um JSON válido no formato abaixo, sem texto antes ou depois:
+{{
+  "questoes": [
+    {{
+      "id": 1,
+      "conteudo": "Nome do conteúdo/tópico da questão",
+      "pergunta": "Texto da pergunta?",
+      "alternativas": [
+        {{"letra": "A", "texto": "Alternativa A"}},
+        {{"letra": "B", "texto": "Alternativa B"}},
+        {{"letra": "C", "texto": "Alternativa C"}},
+        {{"letra": "D", "texto": "Alternativa D"}}
+      ],
+      "resposta_correta": "A",
+      "explicacao": "Explicação detalhada de por que esta é a resposta correta."
+    }}
+  ]
+}}
+
+REGRAS:
+- Gere exatamente {num_questoes} questões
+- Cada questão deve ter exatamente 4 alternativas (A, B, C, D)
+- As questões devem ser baseadas APENAS no conteúdo fornecido
+- O campo "conteudo" deve indicar o tópico específico da questão
+- A explicação deve ser clara e educativa
+- Varie a posição da resposta correta entre as alternativas
+- As fontes disponíveis são: {', '.join(fontes)}
+- Retorne SOMENTE o JSON, sem texto adicional"""
+
+        messages = [
+            {"role": "system", "content": "Você é um gerador de questões acadêmicas. Retorne APENAS JSON válido."},
+            {"role": "user", "content": prompt_quiz}
+        ]
+
+        resposta = llm_client.chat(messages=messages)
+
+        # Tenta extrair o JSON da resposta
+        resposta_limpa = resposta.strip()
+        # Remove blocos de código markdown se presentes
+        if "```" in resposta_limpa:
+            import re
+            json_match = re.search(r'```(?:json)?\s*(.+?)\s*```', resposta_limpa, re.DOTALL)
+            if json_match:
+                resposta_limpa = json_match.group(1)
+
+        # Valida que é JSON válido
+        dados = json.loads(resposta_limpa)
+        resultado = json.dumps(dados, ensure_ascii=False)
+
+        logger.info(f"[TOOL] gerar_questionario | saída: {len(dados.get('questoes', []))} questão(ões)")
+        return resultado
+
+    except json.JSONDecodeError as e:
+        logger.error(f"[TOOL] gerar_questionario | erro JSON: {e}")
+        return json.dumps({"erro": f"Erro ao parsear questionário gerado: {e}"}, ensure_ascii=False)
+    except Exception as e:
+        logger.error(f"[TOOL] gerar_questionario | erro: {e}")
+        return json.dumps({"erro": f"Erro ao gerar questionário: {e}"}, ensure_ascii=False)
+
+
 # Mapeamento nome → função para o agente executar
 TOOL_MAP = {
     "consultar_agenda": consultar_agenda,
@@ -205,6 +299,7 @@ TOOL_MAP = {
     "adicionar_tarefa": adicionar_tarefa,
     "concluir_tarefa": concluir_tarefa,
     "buscar_material_rag": buscar_material_rag,
+    "gerar_questionario": gerar_questionario,
 }
 
 
@@ -251,6 +346,13 @@ def executar_ferramenta(nome: str, argumentos: dict) -> str:
     # Define tipo_evento padrão como "outro" se não informado
     if "tipo_evento" in args and not args["tipo_evento"]:
         args["tipo_evento"] = "outro"
+
+    # Converte num_questoes para int se presente
+    if "num_questoes" in args and args["num_questoes"] is not None:
+        try:
+            args["num_questoes"] = int(args["num_questoes"])
+        except (ValueError, TypeError):
+            args["num_questoes"] = 5
 
     func = TOOL_MAP[nome]
     return func(**args)
