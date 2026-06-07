@@ -4,9 +4,13 @@ main_agent.py — Agente coordenador do Jarvis Acadêmico.
 Implementa o loop principal do agente com tool calling via prompt engineering:
 1. Recebe mensagem do usuário
 2. Envia para o LLM com system prompt que instrui sobre ferramentas
-3. Se o LLM retornar JSON com tool_call → parseia, executa e envia resultado de volta
+3. Se o LLM retornar JSONs com tool_call → parseia, executa e envia resultados de volta
 4. Repete até o LLM retornar resposta de texto (sem tool_call)
 5. Retorna resposta final ao usuário
+
+Suporta:
+- Múltiplas chamadas de ferramenta numa mesma resposta (ex: adicionar 2 eventos)
+- Raciocínio multi-step (ex: consultar agenda → buscar RAG → responder)
 
 A decisão de qual ferramenta chamar é feita inteiramente pela LLM.
 """
@@ -21,95 +25,102 @@ from src.prompts import get_system_prompt
 logger = logging.getLogger(__name__)
 
 # Número máximo de iterações do loop de tool calling (segurança)
-MAX_TOOL_ITERATIONS = 5
+MAX_TOOL_ITERATIONS = 10
 
-def _extrair_json_com_chaves(texto: str) -> str | None:
+
+def _extrair_todos_jsons(texto: str) -> list[str]:
     """
-    Extrai um objeto JSON completo do texto usando contagem de chaves.
+    Extrai todos os objetos JSON completos de um texto usando contagem de chaves.
 
-    Suporta objetos aninhados (ex: {"tool_call": "x", "arguments": {"a": 1}})
-    que regexes simples com [^{}] não conseguem capturar.
+    Suporta objetos aninhados e múltiplos JSONs na mesma string,
+    seja em blocos ```json``` ou diretamente no texto.
 
     Args:
-        texto: Texto que pode conter um JSON embutido.
+        texto: Texto que pode conter um ou mais JSONs embutidos.
 
     Returns:
-        String do JSON extraído, ou None se não encontrado.
+        Lista de strings, cada uma sendo um JSON completo.
     """
-    inicio = texto.find('{')
-    if inicio == -1:
-        return None
+    jsons = []
+    i = 0
 
-    profundidade = 0
-    in_string = False
-    escape = False
+    while i < len(texto):
+        # Procura a próxima abertura de chave
+        inicio = texto.find('{', i)
+        if inicio == -1:
+            break
 
-    for i in range(inicio, len(texto)):
-        c = texto[i]
+        profundidade = 0
+        in_string = False
+        escape = False
 
-        if escape:
-            escape = False
-            continue
-        if c == '\\':
-            escape = True
-            continue
-        if c == '"':
-            in_string = not in_string
-            continue
-        if in_string:
-            continue
+        for j in range(inicio, len(texto)):
+            c = texto[j]
 
-        if c == '{':
-            profundidade += 1
-        elif c == '}':
-            profundidade -= 1
-            if profundidade == 0:
-                candidato = texto[inicio:i + 1]
-                if '"tool_call"' in candidato:
-                    return candidato
-                # Se não contém tool_call, continua buscando outro JSON
-                inicio = texto.find('{', i + 1)
-                if inicio == -1:
-                    return None
-                profundidade = 0
+            if escape:
+                escape = False
+                continue
+            if c == '\\':
+                escape = True
+                continue
+            if c == '"':
+                in_string = not in_string
+                continue
+            if in_string:
+                continue
 
-    return None
+            if c == '{':
+                profundidade += 1
+            elif c == '}':
+                profundidade -= 1
+                if profundidade == 0:
+                    candidato = texto[inicio:j + 1]
+                    jsons.append(candidato)
+                    i = j + 1
+                    break
+        else:
+            # Saiu do for sem fechar todas as chaves
+            break
+
+        if profundidade != 0:
+            break
+
+    return jsons
 
 
-def _extrair_tool_call(resposta: str) -> dict | None:
+def _extrair_tool_calls(resposta: str) -> list[dict]:
     """
-    Tenta extrair uma chamada de ferramenta da resposta do LLM.
+    Extrai todas as chamadas de ferramenta da resposta do LLM.
 
-    O LLM é instruído a retornar JSON no formato:
+    O LLM pode retornar uma ou mais chamadas no formato:
     {"tool_call": "nome", "arguments": {...}}
 
     Args:
         resposta: Texto da resposta do LLM.
 
     Returns:
-        Dicionário com tool_call e arguments, ou None se não for uma chamada.
+        Lista de dicionários com tool_call e arguments.
+        Lista vazia se não houver chamadas.
     """
     texto = resposta.strip()
 
-    # Tenta extrair JSON de bloco de código ```json ... ```
-    json_block = re.search(r'```(?:json)?\s*(\{.+\})\s*```', texto, re.DOTALL)
-    if json_block:
-        texto_json = json_block.group(1)
-    else:
-        # Extrai o JSON completo usando contagem de chaves para suportar
-        # objetos aninhados (ex: arguments com sub-objetos)
-        texto_json = _extrair_json_com_chaves(texto)
-        if texto_json is None:
-            return None
+    # Remove marcadores de bloco de código markdown
+    texto_limpo = re.sub(r'```(?:json)?\s*', '', texto)
+    texto_limpo = texto_limpo.replace('```', '')
 
-    try:
-        dados = json.loads(texto_json)
-        if "tool_call" in dados and "arguments" in dados:
-            return dados
-    except json.JSONDecodeError:
-        logger.warning(f"JSON inválido encontrado na resposta: {texto_json[:100]}")
+    # Extrai todos os JSONs do texto
+    jsons_encontrados = _extrair_todos_jsons(texto_limpo)
 
-    return None
+    tool_calls = []
+    for json_str in jsons_encontrados:
+        try:
+            dados = json.loads(json_str)
+            if isinstance(dados, dict) and "tool_call" in dados and "arguments" in dados:
+                tool_calls.append(dados)
+        except json.JSONDecodeError:
+            logger.warning(f"JSON inválido encontrado na resposta: {json_str[:100]}")
+
+    return tool_calls
 
 
 class JarvisAgent:
@@ -140,8 +151,12 @@ class JarvisAgent:
 
         Implementa o loop de tool calling via prompt engineering:
         - Envia para o LLM
-        - Se o LLM retornar JSON com tool_call → executa e envia resultado
-        - Repete até resposta de texto
+        - Se o LLM retornar JSONs com tool_call → executa todos e envia resultados
+        - Repete até resposta de texto (multi-step)
+
+        Suporta:
+        - Múltiplas ferramentas numa mesma resposta (paralelo)
+        - Chamadas sequenciais em iterações diferentes (multi-step)
 
         Args:
             mensagem: Texto da mensagem do usuário.
@@ -176,7 +191,7 @@ class JarvisAgent:
         # Log de ferramentas executadas nesta interação
         tool_logs = []
 
-        # Loop de tool calling
+        # Loop de tool calling (multi-step)
         for iteration in range(MAX_TOOL_ITERATIONS):
             logger.info(f"Iteração {iteration + 1} do loop de tool calling")
 
@@ -185,47 +200,60 @@ class JarvisAgent:
             except Exception as e:
                 logger.error(f"Erro na comunicação com LLM: {e}")
                 return {
-                    "resposta": f"Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente em alguns instantes.",
+                    "resposta": "Desculpe, ocorreu um erro ao processar sua mensagem. Tente novamente em alguns instantes.",
                     "tool_logs": tool_logs
                 }
 
-            # Verifica se a resposta contém uma chamada de ferramenta
-            tool_call = _extrair_tool_call(resposta_llm)
+            # Extrai todas as chamadas de ferramenta da resposta
+            calls = _extrair_tool_calls(resposta_llm)
 
-            if tool_call is None:
-                # Resposta de texto puro — é a resposta final
+            if not calls:
+                # Sem tool calls — é a resposta final de texto
                 logger.info(f"Resposta final obtida na iteração {iteration + 1}")
                 return {
                     "resposta": resposta_llm,
                     "tool_logs": tool_logs
                 }
 
-            # É uma chamada de ferramenta — executar
-            nome = tool_call["tool_call"]
-            argumentos = tool_call["arguments"]
+            # Há uma ou mais chamadas de ferramenta — executar todas
+            logger.info(f"LLM solicitou {len(calls)} ferramenta(s) na iteração {iteration + 1}")
 
-            logger.info(f"LLM solicitou ferramenta: {nome}({argumentos})")
-
-            # Executa a ferramenta
-            resultado = executar_ferramenta(nome, argumentos)
-
-            # Log da ferramenta (requisito do trabalho)
-            tool_log = {
-                "ferramenta": nome,
-                "entrada": argumentos,
-                "saida": resultado
-            }
-            tool_logs.append(tool_log)
-            logger.info(f"Resultado de {nome}: {resultado[:150]}...")
-
-            # Adiciona a tentativa de tool call e o resultado ao histórico
+            # Adiciona a resposta do assistente (com os JSONs) ao histórico
             messages.append({
                 "role": "assistant",
                 "content": resposta_llm
             })
+
+            # Executa cada ferramenta e coleta os resultados
+            resultados_texto = []
+            for idx, call in enumerate(calls, 1):
+                nome = call["tool_call"]
+                argumentos = call["arguments"]
+
+                logger.info(f"Executando ferramenta {idx}/{len(calls)}: {nome}({argumentos})")
+                resultado = executar_ferramenta(nome, argumentos)
+
+                # Log da ferramenta (requisito do trabalho)
+                tool_log = {
+                    "ferramenta": nome,
+                    "entrada": argumentos,
+                    "saida": resultado
+                }
+                tool_logs.append(tool_log)
+                logger.info(f"Resultado de {nome}: {resultado[:150]}...")
+
+                resultados_texto.append(f"[Ferramenta {idx}: {nome}]\n{resultado}")
+
+            # Envia todos os resultados de volta ao LLM
+            todos_resultados = "\n\n".join(resultados_texto)
             messages.append({
                 "role": "user",
-                "content": f"Resultado da ferramenta {nome}:\n{resultado}\n\nAgora, com base nesse resultado, responda ao usuário de forma natural e informativa em português. Não retorne JSON, responda diretamente ao usuário."
+                "content": (
+                    f"Resultados das ferramentas executadas:\n\n{todos_resultados}\n\n"
+                    f"Com base nesses resultados, você pode:\n"
+                    f"- Chamar mais ferramentas se precisar de mais informações (retorne os JSONs)\n"
+                    f"- Ou responder ao usuário de forma natural e informativa em português (sem JSON)"
+                )
             })
 
         # Se chegou aqui, atingiu o limite de iterações
