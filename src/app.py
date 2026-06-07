@@ -203,9 +203,9 @@ st.markdown("""
         padding: 0.6rem 1rem; border-radius: 8px; margin: 0.3rem 0;
         display: flex; justify-content: space-between; align-items: center;
     }
-    .topic-good { background: #e8f8f0; border-left: 4px solid #2ecc71; }
-    .topic-bad { background: #fde8e8; border-left: 4px solid #e74c3c; }
-    .topic-mid { background: #fef9e7; border-left: 4px solid #f39c12; }
+    .topic-good { background: #1a6b3c; border-left: 4px solid #2ecc71; }
+    .topic-bad { background: #8b1a1a; border-left: 4px solid #e74c3c; }
+    .topic-mid { background: #7a6a1a; border-left: 4px solid #f39c12; }
 </style>
 """, unsafe_allow_html=True)
 
