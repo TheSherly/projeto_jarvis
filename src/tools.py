@@ -1,5 +1,5 @@
 """
-tools.py — Implementação das 5 ferramentas obrigatórias do Jarvis Acadêmico.
+tools.py — Implementação das ferramentas do Jarvis Acadêmico.
 
 Cada ferramenta é uma função Python que executa a ação correspondente
 e retorna o resultado formatado como string para envio ao LLM.
@@ -170,9 +170,37 @@ def buscar_material_rag(query: str) -> str:
         return erro
 
 
+def adicionar_agenda(descricao_evento: str, data: str, tipo_evento: str = "outro") -> str:
+    """
+    Adiciona um novo evento na agenda acadêmica.
+
+    Args:
+        descricao_evento: Descrição do evento (ex: "Prova de Cálculo").
+        data: Data e hora do evento (YYYY-MM-DD ou YYYY-MM-DD HH:MM).
+        tipo_evento: Tipo do evento (aula, prova, trabalho, reuniao, outro). Padrão: "outro".
+
+    Returns:
+        Mensagem de confirmação.
+    """
+    logger.info(f"[TOOL] adicionar_agenda | entrada: descricao='{descricao_evento}', data='{data}', tipo='{tipo_evento}'")
+
+    try:
+        evento_id = database.adicionar_evento(descricao_evento, data, tipo_evento)
+        resultado = f"Evento adicionado com sucesso! ID: {evento_id}, Descrição: '{descricao_evento}', Data: {data}, Tipo: {tipo_evento}"
+
+        logger.info(f"[TOOL] adicionar_agenda | saída: evento_id={evento_id}")
+        return resultado
+
+    except Exception as e:
+        erro = f"Erro ao adicionar evento na agenda: {e}"
+        logger.error(f"[TOOL] adicionar_agenda | erro: {erro}")
+        return erro
+
+
 # Mapeamento nome → função para o agente executar
 TOOL_MAP = {
     "consultar_agenda": consultar_agenda,
+    "adicionar_agenda": adicionar_agenda,
     "listar_tarefas": listar_tarefas,
     "adicionar_tarefa": adicionar_tarefa,
     "concluir_tarefa": concluir_tarefa,
@@ -219,6 +247,10 @@ def executar_ferramenta(nome: str, argumentos: dict) -> str:
     # Trata status vazio como None (sem filtro)
     if "status" in args and not args["status"]:
         args["status"] = None
+
+    # Define tipo_evento padrão como "outro" se não informado
+    if "tipo_evento" in args and not args["tipo_evento"]:
+        args["tipo_evento"] = "outro"
 
     func = TOOL_MAP[nome]
     return func(**args)

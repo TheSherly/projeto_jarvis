@@ -49,14 +49,23 @@ Argumentos:
 
 Exemplo: {{"tool_call": "consultar_agenda", "arguments": {{"data_inicio": "{hoje}", "data_fim": "{hoje}"}}}}
 
-### 2. listar_tarefas
+### 2. adicionar_agenda
+Adiciona um novo evento na agenda acadêmica.
+Argumentos:
+- descricao_evento (string, obrigatório): Descrição do evento
+- data (string, obrigatório): Data e hora do evento no formato YYYY-MM-DD ou YYYY-MM-DD HH:MM
+- tipo_evento (string, opcional): Tipo do evento (aula, prova, trabalho, reuniao, outro). Se não informado, será definido como "outro".
+
+Exemplo: {{"tool_call": "adicionar_agenda", "arguments": {{"descricao_evento": "Prova de Cálculo", "data": "2026-06-10 08:00", "tipo_evento": "prova"}}}}
+
+### 3. listar_tarefas
 Lista as tarefas do usuário.
 Argumentos:
 - status (string, opcional): "pendente" ou "concluida". Se omitido, lista todas.
 
 Exemplo: {{"tool_call": "listar_tarefas", "arguments": {{}}}}
 
-### 3. adicionar_tarefa
+### 4. adicionar_tarefa
 Adiciona uma nova tarefa.
 Argumentos:
 - descricao (string, obrigatório): Descrição da tarefa
@@ -64,14 +73,14 @@ Argumentos:
 
 Exemplo: {{"tool_call": "adicionar_tarefa", "arguments": {{"descricao": "Estudar capítulo 3"}}}}
 
-### 4. concluir_tarefa
+### 5. concluir_tarefa
 Marca uma tarefa como concluída.
 Argumentos:
 - tarefa_id (integer, obrigatório): ID da tarefa
 
 Exemplo: {{"tool_call": "concluir_tarefa", "arguments": {{"tarefa_id": 1}}}}
 
-### 5. buscar_material_rag
+### 6. buscar_material_rag
 Busca informações nos materiais de estudo indexados (PDFs e textos).
 Argumentos:
 - query (string, obrigatório): Pergunta ou tópico a buscar

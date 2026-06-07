@@ -23,6 +23,58 @@ logger = logging.getLogger(__name__)
 # Número máximo de iterações do loop de tool calling (segurança)
 MAX_TOOL_ITERATIONS = 5
 
+def _extrair_json_com_chaves(texto: str) -> str | None:
+    """
+    Extrai um objeto JSON completo do texto usando contagem de chaves.
+
+    Suporta objetos aninhados (ex: {"tool_call": "x", "arguments": {"a": 1}})
+    que regexes simples com [^{}] não conseguem capturar.
+
+    Args:
+        texto: Texto que pode conter um JSON embutido.
+
+    Returns:
+        String do JSON extraído, ou None se não encontrado.
+    """
+    inicio = texto.find('{')
+    if inicio == -1:
+        return None
+
+    profundidade = 0
+    in_string = False
+    escape = False
+
+    for i in range(inicio, len(texto)):
+        c = texto[i]
+
+        if escape:
+            escape = False
+            continue
+        if c == '\\':
+            escape = True
+            continue
+        if c == '"':
+            in_string = not in_string
+            continue
+        if in_string:
+            continue
+
+        if c == '{':
+            profundidade += 1
+        elif c == '}':
+            profundidade -= 1
+            if profundidade == 0:
+                candidato = texto[inicio:i + 1]
+                if '"tool_call"' in candidato:
+                    return candidato
+                # Se não contém tool_call, continua buscando outro JSON
+                inicio = texto.find('{', i + 1)
+                if inicio == -1:
+                    return None
+                profundidade = 0
+
+    return None
+
 
 def _extrair_tool_call(resposta: str) -> dict | None:
     """
@@ -40,15 +92,14 @@ def _extrair_tool_call(resposta: str) -> dict | None:
     texto = resposta.strip()
 
     # Tenta extrair JSON de bloco de código ```json ... ```
-    json_block = re.search(r'```(?:json)?\s*(\{.*?\})\s*```', texto, re.DOTALL)
+    json_block = re.search(r'```(?:json)?\s*(\{.+\})\s*```', texto, re.DOTALL)
     if json_block:
         texto_json = json_block.group(1)
     else:
-        # Tenta encontrar JSON direto na resposta
-        json_match = re.search(r'(\{[^{}]*"tool_call"[^{}]*\})', texto, re.DOTALL)
-        if json_match:
-            texto_json = json_match.group(1)
-        else:
+        # Extrai o JSON completo usando contagem de chaves para suportar
+        # objetos aninhados (ex: arguments com sub-objetos)
+        texto_json = _extrair_json_com_chaves(texto)
+        if texto_json is None:
             return None
 
     try:
