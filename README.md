@@ -26,8 +26,9 @@ $ pip install -r requirements.txt
 ```
 🔑 Configurando as variáveis de ambiente: este projeto utiliza a API da OpenAI. Para que ele funcione, crie um arquivo chamado .env na raiz do projeto (onde está o requirements.txt) e adicione a sua chave de API:
 ```bash
-GEMMA_BASE_URL=https://llm.liaufms.org/v1/gemma-3-12b-it
+GEMMA_BASE_URL=https://llm.liaufms.org/v1/qwen2-5-14b-instruct-awq
 GEMMA_API_KEY=COLE SUA API KEY AQUI
+LLM_MODEL_NAME=COLE SEU MODELO AQUI
 ```
 
 Inicializando a aplicação: com o ambiente virtual ativado e a .env configurada, execute o comando abaixo para iniciar o Streamlit: 
@@ -64,7 +65,7 @@ flowchart TB
 ```
 ## Tecnologias utilizadas
 ### No sistema:
-- **Gemma 3 12B**: Modelo de linguagem de grande porte.
+- **Qwen2.5-14B**: Modelo de linguagem de grande porte.
 - **SQLite**: Banco de dados relacional.
 - **Streamlit**: Framework para criação de interfaces gráficas.
 - **Python**: Linguagem de programação.
@@ -123,16 +124,17 @@ O RAG é o motor que permite ao JARVIS ler, compreender e consultar os seus mate
 | listar_tarefas  | Varre o banco de dados e exibe o seu painel de estudos. Possui a inteligência de filtrar as tarefas, permitindo que a IA mostre apenas o que você ainda precisa estudar ou o que já foi finalizado. |
 | adicionar_tarefa   | Cria uma nova atividade na sua lista de afazeres. O grande diferencial desta ferramenta é a capacidade de vincular a tarefa de estudo diretamente a um evento da sua agenda |
 | concluir_tarefa   | Dá o "check" de finalização em uma atividade. A IA utiliza o número de identificação exato da tarefa para marcá-la como concluída no banco de dados. |
-| buscar_material_rag  | Quando você faz uma pergunta sobre a matéria, a IA aciona esta ferramenta para vasculhar o banco de dados vetorial, extraindo os trechos mais relevantes diretamente dos seus PDFs e materiais de estudo indexados. |
-
+| buscar_material_rag  | Quando você faz uma pergunta sobre a matéria, a IA aciona esta ferramenta para vasculhar o banco de dados vetorial, extraindo os trechos mais relevantes diretamente dos seus PDFs e materiais de estudo indexados.|
+| adicionar_agenda | Adiciona um novo compromisso acadêmico à sua agenda, registrando o evento e a data.|
+| gerar_questionario | Gera um questionário baseado nos materiais de estudo indexados.|
 
 ### 📝 Andamento do projeto - checklist:
 - [x] Consulta a materiais de estudo (RAG)
 - [x] Agenda acadêmica
 - [x] Lista de tarefas
-- [] Planejamento de estudos
+- [x] Planejamento de estudos
 - [x] TOOL CALLING
-- [] Melhorias de aprendizado com funcionalidade interativa
+- [x] Melhorias de aprendizado com funcionalidade interativa
 - [] Avaliação do sistema com 10 perguntas
 - [] Análise de erros: Identificar 3 falhas
 - [x] Construir dataset e incluir origem, tipo e limitações dos dados
