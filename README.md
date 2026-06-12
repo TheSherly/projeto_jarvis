@@ -135,8 +135,8 @@ O RAG é o motor que permite ao JARVIS ler, compreender e consultar os seus mate
 - [x] Planejamento de estudos
 - [x] TOOL CALLING
 - [x] Melhorias de aprendizado com funcionalidade interativa
-- [] Avaliação do sistema com 10 perguntas
-- [] Análise de erros: Identificar 3 falhas
+- [x] Avaliação do sistema com 10 perguntas
+- [x] Análise de erros: Identificar 3 falhas
 - [x] Construir dataset e incluir origem, tipo e limitações dos dados
 - [x] Separação de responsabilidades
 - [x] Logs para monitoramento e debug
